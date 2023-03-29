@@ -1,0 +1,43 @@
+#outerBlock {
+  background-color: rgb(232, 255, 238);
+  margin: 0 auto;
+  margin-top: 6em;
+  border: 1px solid lightblue;
+  border-radius: 0.5em;
+  height: 75vh;
+  width: 80%;
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#textBlock {
+  background-color: rgb(250, 255, 255);
+  border-radius: 0.5em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+#leftBlock {
+  background-color: rgb(228, 251, 251);
+  border-radius: 1em 0em 0em 1em;
+  padding: 2em;
+  height: 65vh;
+}
+
+#userInputBlock {
+  /* background-color: rgb(206, 219, 168); */
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+#rightBlock {
+  background-color: rgb(255, 255, 255);
+  border-radius: 0em 1em 1em 0em;
+  padding: 2em;
+}
