@@ -4,6 +4,7 @@ import NavigationBar from "./components/Navbar/NavigationBar";
 import "./App.css";
 import InputText from "./components/InputText/InputText";
 import UmContext from "./components/Context/UmContext";
+import GameOver from "./components/GameOver/GameOver";
 
 function App() {
   const [currentTaskNumber, setCurrentTaskNumber] = useState(1);
@@ -12,6 +13,7 @@ function App() {
   const [userInputText, setUserInputText] = useState("");
   const [userStartedInput, setUserStartedInput] = useState(false);
   const [isTaskComplete, setIsTaskComplete] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   return (
     <UmContext.Provider
@@ -28,12 +30,15 @@ function App() {
         setUserStartedInput,
         isTaskComplete,
         setIsTaskComplete,
+        isGameOver,
+        setIsGameOver,
       }}
     >
       <div className="App">
         <header className="App-header">
           <NavigationBar />
-          <InputText />
+          {!isGameOver && <InputText />}
+          {isGameOver && <GameOver />}
         </header>
       </div>
     </UmContext.Provider>

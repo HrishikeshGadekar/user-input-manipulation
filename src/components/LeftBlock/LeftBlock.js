@@ -4,14 +4,14 @@ import "./LeftBlock.css";
 
 function LeftBlock() {
   var sampleText = {
-    0: "The quick brown fox jumps over the lazy dog.",
-    1: "The early bird catches the worm.",
-    2: "A picture is worth a thousand words.",
-    3: "Actions speak louder than words.",
-    4: "All is fair in love and war.",
-    5: "Better late than never.",
-    6: "Beauty is in the eye of the beholder.",
-    7: "When in Rome, do as the Romans do.",
+    0: "The quick brown fox jumps over the lazy dog",
+    1: "The early bird catches the worm",
+    2: "A picture is worth a thousand words",
+    3: "Actions speak louder than words",
+    4: "All is fair in love and war",
+    5: "Better late than never",
+    6: "Beauty is in the eye of the beholder",
+    7: "When in Rome, do as the Romans do",
   };
 
   const { currentTaskNumber, setCurrentTaskNumber } = useContext(UmContext);

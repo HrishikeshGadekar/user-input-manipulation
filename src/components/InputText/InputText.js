@@ -11,6 +11,7 @@ function InputText() {
   const { totalTasks, setTotalTasks } = useContext(UmContext);
   const { userStartedInput, setUserStartedInput } = useContext(UmContext);
   const { isTaskComplete, setIsTaskComplete } = useContext(UmContext);
+  const { isGameOver, setIsGameOver } = useContext(UmContext);
 
   const [taskSubmitButtonDisabled, setTaskSubmitButtonDisabled] = useState(
     !userStartedInput
@@ -30,11 +31,15 @@ function InputText() {
       setIsTaskComplete(true);
       setShowSubmitButton(false);
     } else {
-      setResult("Wrong input! Please keep trying.");
+      setResult("Wrong input! Please retry.");
     }
   };
 
   const handleNext = (e) => {
+    if (currentTaskNumber == totalTasks) {
+      setIsGameOver(true);
+    }
+
     const currentTask = currentTaskNumber;
     setCurrentTaskNumber(currentTask + 1);
     setIsTaskComplete(false);
