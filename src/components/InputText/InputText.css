@@ -81,9 +81,10 @@
   align-items: end;
   padding: 1em;
   background-color: rgb(235, 235, 235);
+  font-weight: 500;
+  font-size: 1.25em;
+  border: 1px solid lightgray;
 }
 
 #resultsBlock {
-  font-weight: 500;
-  font-size: 1.25em;
 }
