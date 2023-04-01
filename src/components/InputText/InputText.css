@@ -4,40 +4,86 @@
   margin-top: 6em;
   border: 1px solid lightblue;
   border-radius: 0.5em;
-  height: 75vh;
-  width: 80%;
+  height: 85vh;
+  width: 85%;
   padding: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#textBlock {
-  background-color: rgb(250, 255, 255);
-  border-radius: 0.5em;
-  padding: 1em;
-  display: flex;
-  align-items: center;
+#taskNumberPanel {
+  justify-self: center;
+  text-align: center;
   vertical-align: middle;
-  font-size: 1.5rem;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 6, 70, 1) 10%
+  );
+  color: white;
+  font-size: 1.25em;
   font-weight: 500;
 }
 
-#leftBlock {
-  background-color: rgb(228, 251, 251);
-  border-radius: 1em 0em 0em 1em;
-  padding: 2em;
-  height: 65vh;
+#instructionsPanel {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 6, 70, 1) 10%
+  );
+  justify-self: flex-end;
+  align-items: end;
 }
 
-#userInputBlock {
-  /* background-color: rgb(206, 219, 168); */
+#instructions-btn {
+  width: 100%;
+  margin: 0.2em;
+  border: none;
+  background-color: rgba(255, 255, 255, 1);
+  font-size: 0.75em;
+  font-weight: 300;
+  border-radius: 0.35em;
+}
+
+#submitbtn {
+  width: fit-content;
+  background-color: rgba(0, 6, 70, 1);
   border-radius: 0.5em;
-  padding: 1em;
+  padding: 0.5em 2em;
+  border: none;
+  color: white;
 }
 
-#rightBlock {
-  background-color: rgb(255, 255, 255);
-  border-radius: 0em 1em 1em 0em;
-  padding: 2em;
+#nextbtn {
+  width: fit-content;
+  color: rgba(0, 6, 70, 1);
+  border-radius: 0.5em;
+  padding: 0.5em 2em;
+  border: none;
+  background-color: rgb(235, 235, 235);
+}
+
+#submitBtnBlock {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 1);
+  border: 0.5px solid lightgray;
+}
+
+#resultsBlock {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  padding: 1em;
+  background-color: rgb(235, 235, 235);
+}
+
+#resultsBlock {
+  font-weight: 500;
+  font-size: 1.25em;
 }
