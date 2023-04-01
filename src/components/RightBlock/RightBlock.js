@@ -6,24 +6,18 @@ function RightBlock() {
   const { currentTaskNumber, setCurrentTaskNumber } = useContext(UmContext);
   const { userInputText, setUserInputText } = useContext(UmContext);
   const { userStartedInput, setUserStartedInput } = useContext(UmContext);
-
-  const [textToDisplay, setTextToDisplay] = useState(
-    "Please start typing in the input box below ..."
-  );
-  const [userInputBarText, setUserInputBarText] = useState("");
-  const [isTaskComplete, setIsTaskComplete] = useState(false);
+  const { textToDisplay, setTextToDisplay } = useContext(UmContext);
+  const { isTaskComplete, setIsTaskComplete } = useContext(UmContext);
 
   useEffect(() => {
     setTextToDisplay("Please start typing in the input box below ...");
     setUserInputText("");
-    setUserInputBarText("");
   }, [currentTaskNumber]);
 
   const setTextAsInput = (e) => {
     setUserStartedInput(true);
     setTextToDisplay(e.target.value);
     setUserInputText(e.target.value);
-    setUserInputBarText(e.target.value);
   };
 
   return (
@@ -63,7 +57,7 @@ function RightBlock() {
               style={{ backgroundColor: "rgb(245, 245, 245)" }}
               class="form-control textareaBar"
               aria-label="With textarea"
-              value={userInputBarText}
+              value={userInputText}
               onChange={setTextAsInput}
             ></textarea>
           </div>
