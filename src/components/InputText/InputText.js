@@ -49,6 +49,17 @@ function InputText() {
     setShowSubmitButton(true);
   };
 
+  const handleSkip = (e) => {
+    if (currentTaskNumber == totalTasks) {
+      setIsGameOver(true);
+    }
+    const currentTask = currentTaskNumber;
+    setCurrentTaskNumber(currentTask + 1);
+    setUserInputText("");
+    setResult("");
+    setUserStartedInput(false);
+  };
+
   return (
     <>
       <div id="outerBlock">
@@ -85,23 +96,33 @@ function InputText() {
             )}
             {!isTaskComplete && (
               <div
-                className="col-md-10"
+                className="col-md-8"
                 id="resultsBlock"
                 style={{ color: "red" }}
               >
                 {result}
               </div>
             )}
-            <div className="col-md-2" id="submitBtnBlock">
+            <div className="col-md-4" id="submitBtnBlock">
               {!isTaskComplete && (
-                <button
-                  className="btn-secondary"
-                  id="submitbtn"
-                  disabled={taskSubmitButtonDisabled}
-                  onClick={handleSubmitCheck}
-                >
-                  Submit
-                </button>
+                <>
+                  <button
+                    className="btn-secondary"
+                    id="skipbtn"
+                    onClick={handleSkip}
+                  >
+                    Skip
+                  </button>
+
+                  <button
+                    className="btn-secondary"
+                    id="submitbtn"
+                    disabled={taskSubmitButtonDisabled}
+                    onClick={handleSubmitCheck}
+                  >
+                    Submit
+                  </button>
+                </>
               )}
               {isTaskComplete && (
                 <button
