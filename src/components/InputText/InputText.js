@@ -45,7 +45,7 @@ function InputText() {
   }, [userInputText]);
 
   useState(() => {
-    let randomDuration = Math.floor(Math.random() * 6) + 3; // between 3 to 8 seconds
+    let randomDuration = Math.floor(Math.random() * 6) + 5; // between 5 to 10 seconds
     const interval = setInterval(() => {
       setManipulateNow((prevState) => !prevState);
     }, randomDuration * 1000);
