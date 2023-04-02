@@ -28,6 +28,7 @@ function InputText() {
   const [halfEraseDone, setHalfEraseDone] = useState(false);
   const [triedGarbageAddition, setTriedGarbageAddition] = useState(false);
   const [manipulateNow, setManipulateNow] = useState(true);
+  const [isStartedReplace, setIsStartedReplace] = useState(false);
 
   useEffect(() => {
     setTaskSubmitButtonDisabled(!userStartedInput);
@@ -45,13 +46,26 @@ function InputText() {
   }, [userInputText]);
 
   useState(() => {
-    let randomDuration = Math.floor(Math.random() * 6) + 5; // between 5 to 10 seconds
+    let randomDuration = Math.floor(Math.random() * 6) + 4; // between 5 to 10 seconds
+    if (halfEraseDone) {
+      const interval = setInterval(() => {
+        setManipulateNow((prevState) => !prevState);
+      }, 2000);
+      return () => clearInterval(interval);
+    }
     const interval = setInterval(() => {
       setManipulateNow((prevState) => !prevState);
     }, randomDuration * 1000);
-
     return () => clearInterval(interval);
   }, [manipulateNow]);
+
+  useState(() => {
+    const interval = setInterval(() => {
+      setIsStartedReplace((prevState) => !prevState);
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [isStartedReplace]);
 
   const handleSubmitCheck = (e) => {
     const currentUserInput = userInputText;
@@ -62,6 +76,9 @@ function InputText() {
       setResult("That's correct!");
       setIsTaskComplete(true);
       setShowSubmitButton(false);
+      setTriedGarbageAddition(false);
+      setHalfEraseDone(false);
+      setIsStartedReplace(false);
     } else {
       setResult("Wrong input! Please retry.");
     }
@@ -130,16 +147,14 @@ function InputText() {
       return;
     } else {
       const randomInt = Math.floor(Math.random() * 3) + 1;
-      for (let i = 0; i < 5; i++) {
-        const manipulatedText =
-          replaceWithPreviousOrNextOrAdjacentLettersOnKeyboard(
-            currentUserInput,
-            currentLastLetter,
-            randomInt
-          );
-        setUserInputText(manipulatedText);
-        setCurrentManipulateAttempt(currentManipulateAttempt + 1);
-      }
+      const manipulatedText =
+        replaceWithPreviousOrNextOrAdjacentLettersOnKeyboard(
+          currentUserInput,
+          currentLastLetter,
+          randomInt
+        );
+      setUserInputText(manipulatedText);
+      setCurrentManipulateAttempt(currentManipulateAttempt + 1);
       setManipulateNow(false);
       return;
     }
@@ -255,11 +270,14 @@ function InputText() {
         currentReplacementAttempt - 1
       );
       if (previousOrNextOrAdjacent == 1) {
+        setIsStartedReplace(true);
         return currentUserInput.slice(0, -1) + prevKey;
       }
       if (previousOrNextOrAdjacent == 2) {
+        setIsStartedReplace(true);
         return currentUserInput.slice(0, -1) + nextKey;
       }
+      setIsStartedReplace(true);
       return (
         currentUserInput.slice(0, -1) + prevKey + currentLastLetter + nextKey
       );
@@ -276,7 +294,7 @@ function InputText() {
   return (
     <>
       <div id="outerBlock">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row" id="TaskInstructionsTab">
             <div className="col-md-11" id="taskNumberPanel">
               Task {currentTaskNumber}/{totalTasks}{" "}

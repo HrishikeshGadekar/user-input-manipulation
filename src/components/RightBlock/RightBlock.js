@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import UmContext from "../Context/UmContext";
 import "./RightBlock.css";
 
@@ -20,6 +20,12 @@ function RightBlock() {
     setUserInputText(e.target.value);
   };
 
+  const textInput = useRef(null);
+
+  function handleClick() {
+    textInput.current.focus();
+  }
+
   return (
     <>
       <div className="col-md-7" id="rightBlock">
@@ -29,6 +35,7 @@ function RightBlock() {
             <div
               id="userInputBlock"
               style={{ color: "lightgray", fontStyle: "italic" }}
+              onClick={handleClick}
             >
               {textToDisplay}{" "}
             </div>
@@ -59,6 +66,8 @@ function RightBlock() {
               aria-label="With textarea"
               value={userInputText}
               onChange={setTextAsInput}
+              id="inputArea"
+              ref={textInput}
             ></textarea>
           </div>
         </div>
