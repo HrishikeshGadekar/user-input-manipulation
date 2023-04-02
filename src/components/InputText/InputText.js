@@ -96,6 +96,9 @@ function InputText() {
     setResult("");
     setUserStartedInput(false);
     setShowSubmitButton(true);
+    setTriedGarbageAddition(false);
+    setHalfEraseDone(false);
+    setIsStartedReplace(false);
   };
 
   const handleSkip = (e) => {
@@ -107,6 +110,9 @@ function InputText() {
     setUserInputText("");
     setResult("");
     setUserStartedInput(false);
+    setTriedGarbageAddition(false);
+    setHalfEraseDone(false);
+    setIsStartedReplace(false);
   };
 
   const manipulateText = () => {
