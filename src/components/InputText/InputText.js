@@ -26,15 +26,32 @@ function InputText() {
     !userStartedInput
   );
   const [halfEraseDone, setHalfEraseDone] = useState(false);
+  const [triedGarbageAddition, setTriedGarbageAddition] = useState(false);
+  const [manipulateNow, setManipulateNow] = useState(true);
 
   useEffect(() => {
     setTaskSubmitButtonDisabled(!userStartedInput);
   }, [userStartedInput]);
 
   useEffect(() => {
-    manipulateText();
-    setTextToDisplay(userInputText);
+    console.log(currentManipulateAttempt);
+    console.log(currentManipulateAttempt < 4);
+    console.log(userStartedInput);
+    console.log(currentManipulateAttempt < 4 && userStartedInput);
+    if (manipulateNow && userStartedInput) {
+      manipulateText();
+      setTextToDisplay(userInputText);
+    }
   }, [userInputText]);
+
+  useState(() => {
+    let randomDuration = Math.floor(Math.random() * 6) + 3; // between 3 to 8 seconds
+    const interval = setInterval(() => {
+      setManipulateNow((prevState) => !prevState);
+    }, randomDuration * 1000);
+
+    return () => clearInterval(interval);
+  }, [manipulateNow]);
 
   const handleSubmitCheck = (e) => {
     const currentUserInput = userInputText;
@@ -81,6 +98,8 @@ function InputText() {
     let currentWhitespaces = currentUserInput.split(" ").length - 1;
     let currentLastLetter = currentUserInput[currentUserInputLength - 1];
 
+    let currentManipulationAttempt = currentManipulateAttempt;
+
     console.log(currentUserInput);
     console.log(currentLastLetter);
     console.log(currentWhitespaces);
@@ -89,10 +108,40 @@ function InputText() {
     console.log(currentUserInputLength >= 15 && !halfEraseDone);
     console.log(currentUserInputLength >= 15);
     console.log(!halfEraseDone);
-    if (currentUserInputLength >= 15 && !halfEraseDone) {
-      setHalfEraseDone(true);
+
+    if (
+      currentUserInputLength >= 15 &&
+      !halfEraseDone &&
+      currentManipulateAttempt >= 1
+    ) {
       const manipulatedText = eraseHalfInputAndReturn(currentUserInput);
       setUserInputText(manipulatedText);
+      setHalfEraseDone(true);
+      setCurrentManipulateAttempt(currentManipulateAttempt + 1);
+      setManipulateNow(false);
+      return;
+    } else if (!triedGarbageAddition) {
+      const manipulatedText = addGarbageString(currentUserInput);
+      setUserInputText(manipulatedText);
+      setTriedGarbageAddition(true);
+      setCurrentManipulateAttempt(currentManipulateAttempt + 1);
+      console.log(currentManipulateAttempt);
+      setManipulateNow(false);
+      return;
+    } else {
+      const randomInt = Math.floor(Math.random() * 3) + 1;
+      for (let i = 0; i < 5; i++) {
+        const manipulatedText =
+          replaceWithPreviousOrNextOrAdjacentLettersOnKeyboard(
+            currentUserInput,
+            currentLastLetter,
+            randomInt
+          );
+        setUserInputText(manipulatedText);
+        setCurrentManipulateAttempt(currentManipulateAttempt + 1);
+      }
+      setManipulateNow(false);
+      return;
     }
   };
 
@@ -103,8 +152,8 @@ function InputText() {
       "gdkjfsjgr",
       "iufheriufhre",
       "jtthgresfser",
-      "fdge fregerf eredfre",
-      "ret ewer tre hfy",
+      "fdge fregerf",
+      "ret ewer tre",
       "!@$#%$$@##$",
       "*(&^^%$",
       "d4eR#$%#$%",
@@ -112,8 +161,8 @@ function InputText() {
       "f#$T$#Rest",
       "SAFW434R4",
       "SADFW#@$%$",
-      "             R",
-      "23        43      245",
+      " d  R",
+      "23a43f245",
       "dG#hJ7^k",
       "l&*Fp9$q",
       "eR5@tZ%w",
@@ -197,22 +246,26 @@ function InputText() {
       n: { prev: "b", next: "m" },
       m: { prev: "n", next: "" }, // There's no key after 'm'
     };
-    const prevKey = keyMap[currentLastLetter]["prev"];
-    const nextKey = keyMap[currentLastLetter]["next"];
-    const currentReplacementAttempt =
-      replaceWithPreviousOrNextOrAdjacentLettersOnKeyboardAttempt;
-    setReplaceWithPreviousOrNextOrAdjacentLettersOnKeyboardAttempt(
-      currentReplacementAttempt - 1
-    );
-    if (previousOrNextOrAdjacent == 1) {
-      return currentUserInput.slice(0, -1) + prevKey;
+    try {
+      const prevKey = keyMap[currentLastLetter]["prev"];
+      const nextKey = keyMap[currentLastLetter]["next"];
+      const currentReplacementAttempt =
+        replaceWithPreviousOrNextOrAdjacentLettersOnKeyboardAttempt;
+      setReplaceWithPreviousOrNextOrAdjacentLettersOnKeyboardAttempt(
+        currentReplacementAttempt - 1
+      );
+      if (previousOrNextOrAdjacent == 1) {
+        return currentUserInput.slice(0, -1) + prevKey;
+      }
+      if (previousOrNextOrAdjacent == 2) {
+        return currentUserInput.slice(0, -1) + nextKey;
+      }
+      return (
+        currentUserInput.slice(0, -1) + prevKey + currentLastLetter + nextKey
+      );
+    } catch (error) {
+      return currentUserInput;
     }
-    if (previousOrNextOrAdjacent == 2) {
-      return currentUserInput.slice(0, -1) + nextKey;
-    }
-    return (
-      currentUserInput.slice(0, -1) + prevKey + currentLastLetter + nextKey
-    );
   };
 
   const eraseHalfInputAndReturn = (currentUserInput) => {

@@ -14,7 +14,7 @@ function App() {
   const [userStartedInput, setUserStartedInput] = useState(false);
   const [isTaskComplete, setIsTaskComplete] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [currentManipulateAttempt, setCurrentManipulateAttempt] = useState(1);
+  const [currentManipulateAttempt, setCurrentManipulateAttempt] = useState(0);
   const [textToDisplay, setTextToDisplay] = useState(
     "Please start typing in the input box below ..."
   );
